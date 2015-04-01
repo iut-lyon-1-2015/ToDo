@@ -66,7 +66,6 @@ class DataManager {
         }
     }
     
-    
     func saveContext() {
         
         var error: NSError? = nil
@@ -74,7 +73,6 @@ class DataManager {
         if managedObjectContext.hasChanges && !managedObjectContext.save(&error) {
             println("Failed to save context \(error), \(error?.userInfo)")
         }
-    }
-    
+    }    
 
 }

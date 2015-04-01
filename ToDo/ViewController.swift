@@ -27,14 +27,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 let textField = alert.textFields![0] as UITextField
                 
-                if let task = self.createTaskForName(textField.text) {
+                if let task = TaskManager.sharedManager.createTaskForName(textField.text) {
                  
                     self.tasks.append(task)
                     
                     self.tableView.reloadData()
-                }
-
-                
+                }                
         }
         
         let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.Cancel, handler: nil)
@@ -55,54 +53,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
-        self.loadData()
+        if let results = TaskManager.sharedManager.fetchTasks() {
+            
+            self.tasks = results;
+        }
+        
     }
     
-    //MARK: Persistence
-    func createTaskForName(name : String?) -> Task? {
-        
-        if let nameValue = name {
-            
-            let managedObjectContext = DataManager.sharedManager.managedObjectContext
-            
-            let entity = NSEntityDescription.entityForName("Task", inManagedObjectContext: managedObjectContext)
-            
-            let task = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext) as Task
-            
-            task.name = nameValue
-            
-            var error: NSError? = nil
-            
-            task.managedObjectContext?.save(&error)
-            
-            if error != nil {
-                println("Could not save context : \(error), \(error?.description)")
-            }
-            
-            return task
-        }
-        
-        return nil
-    }
-    
-    func loadData() {
-                
-        let managedObjectContext = DataManager.sharedManager.managedObjectContext
-        
-        let fetchRequest = NSFetchRequest(entityName: "Task")
-        
-        var error: NSError? = nil
-        
-        if let results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [Task] {
-            
-            tasks = results
-        }
-        
-        if error != nil {
-            println("Could not fetch data : \(error), \(error?.description)")
-        }
-        
-    }
     
     //MARK: UITableViewDelegate & UITableViewDataSource
 
