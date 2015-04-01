@@ -13,7 +13,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
     @IBOutlet weak var tableView: UITableView!
 
-    var tasks = [NSManagedObject]()
+    var tasks = [Task]()
     
     @IBAction func addTask(sender: UIBarButtonItem) {
         
@@ -59,7 +59,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //MARK: Persistence
-    func createTaskForName(name : String?) -> NSManagedObject? {
+    func createTaskForName(name : String?) -> Task? {
         
         if let nameValue = name {
             
@@ -69,9 +69,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             
             let entity = NSEntityDescription.entityForName("Task", inManagedObjectContext: managedObjectContext)
             
-            let task = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext)
+            let task = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext) as Task
             
-            task.setValue(nameValue, forKey: "name")
+            task.name = nameValue
             
             var error: NSError? = nil
             
@@ -97,7 +97,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         var error: NSError? = nil
         
-        if let results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [NSManagedObject] {
+        if let results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [Task] {
             
             tasks = results
         }
@@ -120,14 +120,31 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         let task = self.tasks[indexPath.row]
         
-        cell.textLabel?.text = task.valueForKey("name") as? String
+        cell.textLabel?.text = task.name
         
         return cell
     }
     
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
     
+    func tableView(tableView: UITableView, editingStyleForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCellEditingStyle {
+        return UITableViewCellEditingStyle.Delete
+    }
     
-    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let task = self.tasks[indexPath.row]
+        
+        self.tasks.removeAtIndex(indexPath.row)
+        
+        task.managedObjectContext?.deleteObject(task)
+        
+        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
+        
+        task.managedObjectContext?.save(nil)
+    }
     
     
     
