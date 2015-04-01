@@ -63,9 +63,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         if let nameValue = name {
             
-            let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-            
-            let managedObjectContext = appDelegate.managedObjectContext!
+            let managedObjectContext = DataManager.sharedManager.managedObjectContext
             
             let entity = NSEntityDescription.entityForName("Task", inManagedObjectContext: managedObjectContext)
             
@@ -88,10 +86,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func loadData() {
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as AppDelegate
-        
-        let managedObjectContext = appDelegate.managedObjectContext!
+                
+        let managedObjectContext = DataManager.sharedManager.managedObjectContext
         
         let fetchRequest = NSFetchRequest(entityName: "Task")
         
