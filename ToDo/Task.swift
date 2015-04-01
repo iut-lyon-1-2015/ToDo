@@ -11,6 +11,9 @@ import CoreData
 
 class Task: NSManagedObject {
 
+    @NSManaged var date: NSDate
     @NSManaged var name: String
+    @NSManaged var text: String
+    @NSManaged var photo: NSData
 
 }

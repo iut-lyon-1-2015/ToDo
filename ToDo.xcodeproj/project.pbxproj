@@ -450,7 +450,7 @@
 				3D1796FC1ACBFF6D008A51AD /* ToDo 2.xcdatamodel */,
 				3D1796C71ACBEB5D008A51AD /* ToDo.xcdatamodel */,
 			);
-			currentVersion = 3D1796C71ACBEB5D008A51AD /* ToDo.xcdatamodel */;
+			currentVersion = 3D1796FC1ACBFF6D008A51AD /* ToDo 2.xcdatamodel */;
 			path = ToDo.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

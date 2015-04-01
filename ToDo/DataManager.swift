@@ -50,7 +50,8 @@ class DataManager {
         
         let storeURL = documentURL.URLByAppendingPathComponent("ToDo.sqlite")
         
-        let options = [NSMigratePersistentStoresAutomaticallyOption : true]
+        let options = [NSMigratePersistentStoresAutomaticallyOption : true,
+            NSInferMappingModelAutomaticallyOption: true]
         
         var error: NSError? = nil
         
@@ -73,6 +74,6 @@ class DataManager {
         if managedObjectContext.hasChanges && !managedObjectContext.save(&error) {
             println("Failed to save context \(error), \(error?.userInfo)")
         }
-    }    
-
+    }
+    
 }
