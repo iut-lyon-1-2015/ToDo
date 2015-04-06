@@ -31,9 +31,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 if let task = self.taskManager.createTaskForName(textField.text) {
                  
-                    self.tasks.append(task)
+                    self.tasks.insert(task, atIndex: 0)
                     
-                    self.tableView.reloadData()
+                    self.tableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation:UITableViewRowAnimation.Top)
                 }                
         }
         
@@ -50,16 +50,30 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
     }
 
+    @IBAction func resetDatabase(sender: UIBarButtonItem) {
+        
+        CoreDataManager.sharedManager.resetDatabase()
+        
+        loadData()
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        
+        loadData()
+    }
+    
+    func loadData() {
         
         if let results = taskManager.fetchTasks() {
             
             self.tasks = results;
         }
         
+        self.tableView.reloadData()
     }
     
     
@@ -93,14 +107,25 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let task = self.tasks[indexPath.row]
         
         self.tasks.removeAtIndex(indexPath.row)
-        
-        task.managedObjectContext?.deleteObject(task)
-        
+                
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: UITableViewRowAnimation.Automatic)
         
-        task.managedObjectContext?.save(nil)
+        taskManager.deleteTask(task)
     }
     
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        let task = self.tasks[indexPath.row]
+        
+        let storyBoard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
+        
+        let viewController = storyBoard.instantiateViewControllerWithIdentifier("TaskDetailViewController") as TaskDetailViewController
+        
+        viewController.task = task
+        
+        self.navigationController?.showViewController(viewController, sender: self)
+    }
 
 }
 

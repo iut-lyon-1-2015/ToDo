@@ -1,8 +1,8 @@
 //
-//  TaskManager.swift
+//  CategoryManager.swift
 //  ToDo
 //
-//  Created by William Antwi on 01/04/2015.
+//  Created by William Antwi on 06/04/2015.
 //  Copyright (c) 2015 William Antwi. All rights reserved.
 //
 
@@ -10,27 +10,26 @@ import Foundation
 
 import CoreData
 
-
-class TaskManager {
+class CategoryManager {
     
     var coreDataManager: CoreDataManager?
-
+    
     init (coreDataManager: CoreDataManager) {
-     
+        
         self.coreDataManager = coreDataManager
     }
     
-    func createTaskForName(name : String?) -> Task? {
+    func createCategoryWithName(name : String?) -> Category? {
         
         if let nameValue = name {
-           
+            
             if coreDataManager != nil {
                 
-                let entity = NSEntityDescription.entityForName("Task", inManagedObjectContext: coreDataManager!.managedObjectContext)
+                let entity = NSEntityDescription.entityForName("Category", inManagedObjectContext: coreDataManager!.managedObjectContext)
                 
-                let task = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: coreDataManager!.managedObjectContext) as Task
+                let category = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: coreDataManager!.managedObjectContext) as Category
                 
-                task.name = nameValue
+                category.name = nameValue
                 
                 var error: NSError? = nil
                 
@@ -40,32 +39,23 @@ class TaskManager {
                     println("Could not save context : \(error), \(error?.description)")
                 }
                 
-                return task
+                return category
                 
             }
-            
         }
         
         return nil
     }
     
-    func deleteTask(task: Task?) {
-        
-        if let taskToDelete = task {
-            coreDataManager!.managedObjectContext.deleteObject(taskToDelete)
-            coreDataManager!.managedObjectContext.save(nil)
-        }
-    }
-    
-    func fetchTasks() -> [Task]? {
+    func fetchTasks() -> [Category]? {
         
         if let core = coreDataManager {
             
-            let fetchRequest = NSFetchRequest(entityName: "Task")
+            let fetchRequest = NSFetchRequest(entityName: "Category")
             
             var error: NSError? = nil
             
-            if let results = core.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [Task] {
+            if let results = core.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [Category] {
                 
                 return results
             }
@@ -73,10 +63,10 @@ class TaskManager {
             if error != nil {
                 println("Could not fetch data : \(error), \(error?.description)")
             }
+            
         }
         
         return nil
         
     }
-    
 }

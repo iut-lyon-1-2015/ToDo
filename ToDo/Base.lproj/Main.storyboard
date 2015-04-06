@@ -34,7 +34,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="ToDo" id="e5r-sX-LIs">
-                        <barButtonItem key="leftBarButtonItem" title="Reset" id="IDW-Nc-oEt"/>
+                        <barButtonItem key="leftBarButtonItem" title="Reset" id="IDW-Nc-oEt">
+                            <connections>
+                                <action selector="resetDatabase:" destination="vXZ-lx-hvc" id="0ib-g8-Ivw"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="adk-RD-0P7">
                             <connections>
                                 <action selector="addTask:" destination="vXZ-lx-hvc" id="qXu-bA-PaU"/>
@@ -47,7 +51,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="873" y="5"/>
+            <point key="canvasLocation" x="785" y="5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ktK-ei-tTO">
@@ -68,5 +72,114 @@
             </objects>
             <point key="canvasLocation" x="137" y="5"/>
         </scene>
+        <!--Task Detail View Controller-->
+        <scene sceneID="6Y2-rO-RjB">
+            <objects>
+                <viewController storyboardIdentifier="TaskDetailViewController" id="Yda-AC-aOp" customClass="TaskDetailViewController" customModule="ToDo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="kEc-zr-4Sl"/>
+                        <viewControllerLayoutGuide type="bottom" id="LUW-34-LnZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qSz-qu-7tV">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYg-xQ-NsX">
+                                <rect key="frame" x="0.0" y="353" width="600" height="42"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="rMQ-Z1-5lm"/>
+                                </constraints>
+                                <state key="normal" title="Add a photo">
+                                    <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="addPhoto" destination="Yda-AC-aOp" eventType="touchUpInside" id="hee-CK-xTl"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="bKU-DJ-POX">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="345"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="345" id="Al9-10-cgF"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzt-Tn-6tH">
+                                <rect key="frame" x="0.0" y="403" width="600" height="42"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="MJO-9y-h6H"/>
+                                </constraints>
+                                <state key="normal" title="Category">
+                                    <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectCategory" destination="Yda-AC-aOp" eventType="touchUpInside" id="B4m-Sf-tLw"/>
+                                    <segue destination="uWe-gg-Dgk" kind="show" id="RyX-nk-mxY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bzt-Tn-6tH" firstAttribute="top" secondItem="IYg-xQ-NsX" secondAttribute="bottom" constant="8" id="158-xq-W16"/>
+                            <constraint firstAttribute="trailing" secondItem="bKU-DJ-POX" secondAttribute="trailing" id="1Pw-dY-Jzj"/>
+                            <constraint firstAttribute="trailing" secondItem="IYg-xQ-NsX" secondAttribute="trailing" id="7XQ-nn-YY5"/>
+                            <constraint firstItem="IYg-xQ-NsX" firstAttribute="leading" secondItem="qSz-qu-7tV" secondAttribute="leading" id="DC4-2T-M8B"/>
+                            <constraint firstItem="bKU-DJ-POX" firstAttribute="top" secondItem="kEc-zr-4Sl" secondAttribute="bottom" id="FzV-7f-4za"/>
+                            <constraint firstItem="IYg-xQ-NsX" firstAttribute="top" secondItem="bKU-DJ-POX" secondAttribute="bottom" constant="8" id="RU7-hY-at8"/>
+                            <constraint firstItem="bzt-Tn-6tH" firstAttribute="leading" secondItem="qSz-qu-7tV" secondAttribute="leading" id="aSk-Fp-2em"/>
+                            <constraint firstAttribute="trailing" secondItem="bzt-Tn-6tH" secondAttribute="trailing" id="cdt-Uw-8LO"/>
+                            <constraint firstItem="bKU-DJ-POX" firstAttribute="leading" secondItem="qSz-qu-7tV" secondAttribute="leading" id="qsQ-fp-D1L"/>
+                        </constraints>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="imageView" destination="bKU-DJ-POX" id="7xr-0a-iOe"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="adc-td-OnY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1444" y="5"/>
+        </scene>
+        <!--Categories-->
+        <scene sceneID="amw-Dr-9ht">
+            <objects>
+                <viewController storyboardIdentifier="CategoriesViewController" id="uWe-gg-Dgk" customClass="CategoriesViewController" customModule="ToDo" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ERt-oL-wvq"/>
+                        <viewControllerLayoutGuide type="bottom" id="uhp-Qu-a0S"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ZD1-Il-GEt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="sAN-GF-Pjy">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="sAN-GF-Pjy" firstAttribute="top" secondItem="ERt-oL-wvq" secondAttribute="bottom" id="8xK-B3-bAt"/>
+                            <constraint firstAttribute="trailing" secondItem="sAN-GF-Pjy" secondAttribute="trailing" id="M6K-9s-Okb"/>
+                            <constraint firstItem="uhp-Qu-a0S" firstAttribute="top" secondItem="sAN-GF-Pjy" secondAttribute="bottom" id="lpr-pd-1n2"/>
+                            <constraint firstItem="sAN-GF-Pjy" firstAttribute="leading" secondItem="ZD1-Il-GEt" secondAttribute="leading" id="vXo-qD-7D0"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Categories" id="xDn-qI-Sty">
+                        <barButtonItem key="leftBarButtonItem" title="Save" id="nKL-Nk-d3Y"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="2fR-Y4-mbb"/>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Egf-u6-jFo" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2125" y="5"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="default-placeholder" width="500" height="500"/>
+    </resources>
 </document>

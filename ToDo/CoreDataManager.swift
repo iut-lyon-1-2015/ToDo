@@ -91,7 +91,6 @@ class CoreDataManager {
             
             return _managedObjectContext!
         }
-        
     }
   
     func applicationDocumentDirectory() -> NSURL {
