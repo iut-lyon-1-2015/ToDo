@@ -47,7 +47,15 @@ class CategoryManager {
         return nil
     }
     
-    func fetchTasks() -> [Category]? {
+    func deleteCategory(category: Category?) {
+        
+        if let categoryToDelete = category {
+            coreDataManager!.managedObjectContext.deleteObject(categoryToDelete)
+            coreDataManager!.managedObjectContext.save(nil)
+        }
+    }
+    
+    func fetchCategories() -> [Category]? {
         
         if let core = coreDataManager {
             

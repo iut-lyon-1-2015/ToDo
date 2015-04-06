@@ -158,6 +158,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="sAN-GF-Pjy">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="uWe-gg-Dgk" id="6K9-fw-3eU"/>
+                                    <outlet property="delegate" destination="uWe-gg-Dgk" id="Wli-VJ-rIs"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -169,10 +173,21 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Categories" id="xDn-qI-Sty">
-                        <barButtonItem key="leftBarButtonItem" title="Save" id="nKL-Nk-d3Y"/>
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="2fR-Y4-mbb"/>
+                        <barButtonItem key="leftBarButtonItem" title="Done" id="nKL-Nk-d3Y">
+                            <connections>
+                                <action selector="save:" destination="uWe-gg-Dgk" id="U23-xL-feH"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="2fR-Y4-mbb">
+                            <connections>
+                                <action selector="addCategory:" destination="uWe-gg-Dgk" id="jdF-5i-7qS"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <connections>
+                        <outlet property="tableView" destination="sAN-GF-Pjy" id="W9V-WH-0bp"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Egf-u6-jFo" sceneMemberID="firstResponder"/>
             </objects>
