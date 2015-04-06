@@ -15,6 +15,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     var tasks = [Task]()
     
+    var taskManager = TaskManager(coreDataManager: CoreDataManager.sharedManager)
+    
     @IBAction func addTask(sender: UIBarButtonItem) {
         
         let alert = UIAlertController(title: "ToDo",
@@ -27,7 +29,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
                 
                 let textField = alert.textFields![0] as UITextField
                 
-                if let task = TaskManager.sharedManager.createTaskForName(textField.text) {
+                if let task = self.taskManager.createTaskForName(textField.text) {
                  
                     self.tasks.append(task)
                     
@@ -53,7 +55,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
-        if let results = TaskManager.sharedManager.fetchTasks() {
+        if let results = taskManager.fetchTasks() {
             
             self.tasks = results;
         }
@@ -98,22 +100,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         task.managedObjectContext?.save(nil)
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 
 }

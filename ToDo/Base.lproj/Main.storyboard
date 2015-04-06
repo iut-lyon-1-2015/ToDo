@@ -34,6 +34,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="ToDo" id="e5r-sX-LIs">
+                        <barButtonItem key="leftBarButtonItem" title="Reset" id="IDW-Nc-oEt"/>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="adk-RD-0P7">
                             <connections>
                                 <action selector="addTask:" destination="vXZ-lx-hvc" id="qXu-bA-PaU"/>

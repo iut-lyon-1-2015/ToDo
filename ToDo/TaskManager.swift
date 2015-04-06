@@ -11,36 +11,39 @@ import Foundation
 import CoreData
 
 
-class TaskManager: DataManager {
+class TaskManager {
     
-    override class var sharedManager: TaskManager {
-        
-        struct Singleton {
-            static let instance = TaskManager()
-        }
-        
-        return Singleton.instance
+    var coreDataManager: CoreDataManager?
+
+    init (coreDataManager: CoreDataManager) {
+     
+        self.coreDataManager = coreDataManager
     }
     
     func createTaskForName(name : String?) -> Task? {
         
         if let nameValue = name {
-            
-            let entity = NSEntityDescription.entityForName("Task", inManagedObjectContext: managedObjectContext)
-            
-            let task = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedObjectContext) as Task
-            
-            task.name = nameValue
-            
-            var error: NSError? = nil
-            
-            managedObjectContext.save(&error)
-            
-            if error != nil {
-                println("Could not save context : \(error), \(error?.description)")
+           
+            if coreDataManager != nil {
+                
+                let entity = NSEntityDescription.entityForName("Task", inManagedObjectContext: coreDataManager!.managedObjectContext)
+                
+                let task = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: coreDataManager!.managedObjectContext) as Task
+                
+                task.name = nameValue
+                
+                var error: NSError? = nil
+                
+                coreDataManager!.managedObjectContext.save(&error)
+                
+                if error != nil {
+                    println("Could not save context : \(error), \(error?.description)")
+                }
+                
+                return task
+                
             }
             
-            return task
         }
         
         return nil
@@ -48,17 +51,21 @@ class TaskManager: DataManager {
     
     func fetchTasks() -> [Task]? {
         
-        let fetchRequest = NSFetchRequest(entityName: "Task")
-        
-        var error: NSError? = nil
-        
-        if let results = managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [Task] {
+        if let core = coreDataManager {
             
-            return results
-        }
-        
-        if error != nil {
-            println("Could not fetch data : \(error), \(error?.description)")
+            let fetchRequest = NSFetchRequest(entityName: "Task")
+            
+            var error: NSError? = nil
+            
+            if let results = core.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [Task] {
+                
+                return results
+            }
+            
+            if error != nil {
+                println("Could not fetch data : \(error), \(error?.description)")
+            }
+            
         }
         
         return nil
