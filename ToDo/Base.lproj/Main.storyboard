@@ -46,10 +46,19 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="searchDisplayController" destination="JNn-FV-b7B" id="O4Y-cI-zED"/>
                         <outlet property="tableView" destination="O31-vW-QPn" id="xat-Iu-9TA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="JNn-FV-b7B">
+                    <connections>
+                        <outlet property="delegate" destination="vXZ-lx-hvc" id="xdc-A8-KLs"/>
+                        <outlet property="searchContentsController" destination="vXZ-lx-hvc" id="yz5-yr-lvh"/>
+                        <outlet property="searchResultsDataSource" destination="vXZ-lx-hvc" id="Kco-n5-LDI"/>
+                        <outlet property="searchResultsDelegate" destination="vXZ-lx-hvc" id="oV3-6n-CkC"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="785" y="5"/>
         </scene>
@@ -86,12 +95,12 @@
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IYg-xQ-NsX">
                                 <rect key="frame" x="0.0" y="353" width="600" height="42"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="rMQ-Z1-5lm"/>
                                 </constraints>
                                 <state key="normal" title="Add a photo">
-                                    <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                    <color key="titleColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -100,24 +109,24 @@
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="bKU-DJ-POX">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="345"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="345" id="Al9-10-cgF"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bzt-Tn-6tH">
                                 <rect key="frame" x="0.0" y="403" width="600" height="42"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="42" id="MJO-9y-h6H"/>
                                 </constraints>
                                 <state key="normal" title="Category">
-                                    <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
+                                    <color key="titleColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="selectCategory" destination="Yda-AC-aOp" eventType="touchUpInside" id="B4m-Sf-tLw"/>
-                                    <segue destination="uWe-gg-Dgk" kind="show" id="RyX-nk-mxY"/>
+                                    <segue destination="uWe-gg-Dgk" kind="show" identifier="SelectCategory" id="RyX-nk-mxY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -136,6 +145,7 @@
                     </view>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <connections>
+                        <outlet property="categoryButton" destination="bzt-Tn-6tH" id="20L-Bp-mRr"/>
                         <outlet property="imageView" destination="bKU-DJ-POX" id="7xr-0a-iOe"/>
                     </connections>
                 </viewController>

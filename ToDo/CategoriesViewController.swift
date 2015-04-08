@@ -8,6 +8,12 @@
 
 import UIKit
 
+protocol CategoriesViewControllerDelegate {
+    
+    func categoriesViewDidSaveWithCategory(category : Category)
+    
+}
+
 class CategoriesViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
@@ -19,6 +25,8 @@ class CategoriesViewController: UIViewController {
     var selectedCategory: Category? = nil
     
     var selectedIndexPath: NSIndexPath? = nil
+    
+    var delegate: CategoriesViewControllerDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +47,11 @@ class CategoriesViewController: UIViewController {
     }
 
     @IBAction func save(sender: UIBarButtonItem) {
+        
+        if let category = selectedCategory {
+            delegate?.categoriesViewDidSaveWithCategory(category)
+        }
+        
         self.navigationController?.popViewControllerAnimated(true)
     }
     

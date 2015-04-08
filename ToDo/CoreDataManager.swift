@@ -86,6 +86,7 @@ class CoreDataManager {
             if _managedObjectContext == nil {
                 
                 _managedObjectContext = NSManagedObjectContext()
+                
                 _managedObjectContext!.persistentStoreCoordinator = persistentStoreCoordinator
             }
             

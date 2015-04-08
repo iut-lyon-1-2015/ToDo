@@ -63,6 +63,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     
         self.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         
+        println("Number of task \(taskManager.numberOfTasks())")
+        
+        
         loadData()
     }
     

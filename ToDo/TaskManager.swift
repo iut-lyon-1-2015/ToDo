@@ -49,6 +49,51 @@ class TaskManager {
         return nil
     }
     
+    func fetchTask(predicate: NSPredicate) -> Task? {
+        
+        if let tasks = fetchTasks(predicate, sortDescriptors: nil) {
+            return tasks[0]
+        }
+        
+        return nil
+    }
+    
+    func fetchTasks(predicate: NSPredicate, sortDescriptors: [NSSortDescriptor]?) -> [Task]? {
+        
+        let fetchRequest = NSFetchRequest(entityName: "Task")
+
+        fetchRequest.sortDescriptors = sortDescriptors
+
+        fetchRequest.predicate = predicate
+        
+        if coreDataManager != nil {
+            
+            var error: NSError? = nil
+            
+            let results = coreDataManager?.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as [Task]
+            
+            if results.count > 0 {
+                return results
+            }
+        }
+        
+        return nil
+    }
+    
+    func searchTaskWithName(name: String?) -> Task? {
+        
+        
+        if name != nil {
+            
+            let predicate = NSPredicate(format: "name = %@", name!)!
+            
+            return fetchTask(predicate)
+        }
+        
+        
+        return nil
+    }
+    
     func deleteTask(task: Task?) {
         
         if let taskToDelete = task {
@@ -63,6 +108,8 @@ class TaskManager {
             
             let fetchRequest = NSFetchRequest(entityName: "Task")
             
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+            
             var error: NSError? = nil
             
             if let results = core.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [Task] {
@@ -76,7 +123,34 @@ class TaskManager {
         }
         
         return nil
+    }
+    
+    func numberOfTasks() -> NSInteger {
         
+        var count = 0
+
+        if let core = coreDataManager {
+            
+            let fetchRequest = NSFetchRequest(entityName: "Task")
+            
+            fetchRequest.resultType = NSFetchRequestResultType.CountResultType
+            
+            var error: NSError? = nil
+            
+            if let result = core.managedObjectContext.executeFetchRequest(fetchRequest, error: &error) as? [NSNumber] {
+                
+                return result[0].integerValue
+            }
+            
+            //or
+            count = core.managedObjectContext.countForFetchRequest(fetchRequest, error: &error)
+            
+            if error != nil {
+                println("Could not fetch data : \(error), \(error?.description)")
+            }
+        }
+        
+        return count
     }
     
 }
